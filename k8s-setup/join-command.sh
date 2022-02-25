@@ -1,0 +1,1 @@
+kubeadm join 64.227.66.84:6443 --token wlg0d7.xs6fvlna6piggfrj --discovery-token-ca-cert-hash sha256:feb9864671d00981cc8367e02a53866a2a05bae52b5b866331bd6b97a632fca6 
