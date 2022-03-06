@@ -95,11 +95,22 @@
       daemon_reload: yes
       state: restarted
 
+  - name: Check if k8s is already running
+    stat:
+      path: /etc/kubernetes/pki/ca.crt
+    register: kubelet
+
   - name: Copy the join command to server location
     copy: src=join-command.sh dest=/tmp/join-command.sh mode=0777
+    when: not kubelet
+    tags:
+      - copy-join-cmd
 
   - name: Join the node to cluster
     command: sh /tmp/join-command.sh
+    when: not kubelet
+    tags:
+      - join-command
 
   handlers:
     - name: docker status

@@ -4,7 +4,7 @@ terraform plan && terraform apply -auto-approve
 retVal=$?
 
 if [ $retVal -eq 0 ]; then
-    make master && make node
+    make master && make nodes
 fi
 
 retVal=$?

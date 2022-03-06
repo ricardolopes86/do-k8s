@@ -36,6 +36,9 @@ data "digitalocean_sizes" "size" {
     }
 }
 
-data "digitalocean_ssh_key" "mykey" {
-    name = "mambu-laptop"
+data "digitalocean_ssh_keys" "mykeys" {
+    sort {
+        key       = "name"
+        direction = "asc"
+    }
 }

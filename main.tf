@@ -16,7 +16,7 @@ resource "digitalocean_droplet" "k8s_controlplane" {
     name = "controlplane"
     region = "ams3"
     size = element(data.digitalocean_sizes.cp_size.sizes, 0).slug
-    ssh_keys = [ data.digitalocean_ssh_key.mykey.id ]
+    ssh_keys = [ data.digitalocean_ssh_keys.mykeys.ssh_keys[0].id ]
 
     provisioner "local-exec" {    
         command = "echo '[controlplane]' > ./k8s-setup/inventory; echo '${self.ipv4_address}' >> ./k8s-setup/inventory; echo '[nodes]' >> ./k8s-setup/inventory;"
@@ -29,7 +29,7 @@ resource "digitalocean_droplet" "k8s_nodes" {
     name = "node-${count.index}"
     region = "ams3"
     size = element(data.digitalocean_sizes.size.sizes, 0).slug
-    ssh_keys = [ data.digitalocean_ssh_key.mykey.id ]
+    ssh_keys = [ data.digitalocean_ssh_keys.mykeys.ssh_keys[0].id ]
 
     provisioner "local-exec" {    
         command = "echo '${self.ipv4_address}' >> ./k8s-setup/inventory"  
